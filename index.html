@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ghost-gallery | Crapht Dsigns</title>
+  <link rel="stylesheet" href="src/style.css" />
+  
+  <style>
+    .splash-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: #000;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      transition: opacity 0.5s ease-out;
+    }
+
+    .splash-screen.fade-out {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .splash-logo {
+      max-width: 200px;
+      max-height: 200px;
+      width: auto;
+      height: auto;
+      margin-bottom: 2rem;
+      object-fit: contain;
+    }
+
+    .splash-title {
+      font-family: "IBM Plex Mono", monospace;
+      font-weight: 700;
+      font-size: clamp(1.5rem, 4vw, 2.5rem);
+      color: #fff;
+      /* text-transform: uppercase; */
+      letter-spacing: 0.1em;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .splash-logo {
+        max-width: 150px;
+        max-height: 150px;
+        margin-bottom: 1.5rem;
+      }
+      
+      .splash-title {
+        font-size: clamp(1.2rem, 5vw, 2rem);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .splash-logo {
+        max-width: 120px;
+        max-height: 120px;
+        margin-bottom: 1rem;
+      }
+      
+      .splash-title {
+        font-size: clamp(1rem, 6vw, 1.5rem);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Splash Screen -->
+  <div class="splash-screen" id="splashScreen">
+    <img src="/logo.png" alt="Crapht Dsigns Logo" class="splash-logo">
+    <h1 class="splash-title">Crapht Dsigns</h1>
+  </div>
+
+  <!-- Main Content (initially hidden) -->
+  <section id="gallery" style="display: none;">
+    <div class="vignette-overlay"></div>
+  </section>
+  
+  <script type="module" src="/src/main.js"></script>
+
+  <script>
+    // Handle splash screen timing and navigation
+    document.addEventListener('DOMContentLoaded', function() {
+      const splashScreen = document.getElementById('splashScreen');
+      const gallery = document.getElementById('gallery');
+      
+      // Show splash screen for 5 seconds
+      setTimeout(() => {
+        splashScreen.classList.add('fade-out');
+        
+        // Remove splash screen from DOM after fade animation
+        setTimeout(() => {
+          splashScreen.style.display = 'none';
+          gallery.style.display = 'block';
+          
+          // Initialize the main gallery if it exists
+          if (typeof init === 'function') {
+            init();
+          }
+        }, 500); // Match the CSS transition duration
+      }, 5000);
+    });
+  </script>
+</body>
+
+</html>
