@@ -80,14 +80,24 @@ const createTextureAtlas = (textures, isText = false) => {
   }
 
   textures.forEach((texture, index) => {
+    if (!texture) return; // Skip null textures
+    
     const x = (index % atlasSize) * textureSize;
     const y = Math.floor(index / atlasSize) * textureSize;
 
-    const source = texture?.image || texture?.source?.data || texture;
     try {
-      if (source) ctx.drawImage(source, x, y, textureSize, textureSize);
+      // Ensure texture is fully loaded
+      if (texture.image && texture.image.complete) {
+        ctx.drawImage(texture.image, x, y, textureSize, textureSize);
+      } else if (texture.source?.data) {
+        // Handle case where texture has source data
+        ctx.drawImage(texture.source.data, x, y, textureSize, textureSize);
+      } else if (texture instanceof HTMLImageElement) {
+        ctx.drawImage(texture, x, y, textureSize, textureSize);
+      } else {
+        console.warn(`Texture ${index} not ready for atlas creation`);
+      }
     } catch (err) {
-      // skip invalid/missing images but keep running
       console.warn("Failed to draw atlas cell", index, err);
     }
   });
@@ -113,31 +123,39 @@ const loadTextures = () => {
   return new Promise((resolve) => {
     if (!projects || projects.length === 0) return resolve([]);
 
-    projects.forEach((project) => {
+    projects.forEach((project, index) => {
       const texture = textureLoader.load(
         project.image,
-        () => {
+        (loadedTexture) => {
+          // Only add texture after it's fully loaded
+          Object.assign(loadedTexture, {
+            wrapS: THREE.ClampToEdgeWrapping,
+            wrapT: THREE.ClampToEdgeWrapping,
+            minFilter: THREE.LinearFilter,
+            magFilter: THREE.LinearFilter,
+            flipY: false,
+          });
+
+          imageTextures[index] = loadedTexture;
           loadedCount += 1;
-          if (loadedCount === projects.length) resolve(imageTextures);
+          
+          if (loadedCount === projects.length) {
+            // Create text textures only after all images are loaded
+            const localTextTextures = projects.map(p => createTextTexture(p.title, p.year));
+            resolve({ imageTextures, textTextures: localTextTextures });
+          }
         },
         undefined,
         (err) => {
           console.warn("Texture load error", project.image, err);
           loadedCount += 1;
-          if (loadedCount === projects.length) resolve(imageTextures);
+          if (loadedCount === projects.length) {
+            // Still create text textures even if some images failed
+            const localTextTextures = projects.map(p => createTextTexture(p.title, p.year));
+            resolve({ imageTextures, textTextures: localTextTextures });
+          }
         }
       );
-
-      Object.assign(texture, {
-        wrapS: THREE.ClampToEdgeWrapping,
-        wrapT: THREE.ClampToEdgeWrapping,
-        minFilter: THREE.LinearFilter,
-        magFilter: THREE.LinearFilter,
-        flipY: false,
-      });
-
-      imageTextures.push(texture);
-      textTextures.push(createTextTexture(project.title, project.year));
     });
   });
 };
@@ -291,9 +309,9 @@ const init = async () => {
   );
   container.appendChild(renderer.domElement);
 
-  const imageTextures = await loadTextures();
-  const imageAtlas = createTextureAtlas(imageTextures, false);
-  const textAtlas = createTextureAtlas(textTextures, true);
+  const loadedTextures = await loadTextures();
+  const imageAtlas = createTextureAtlas(loadedTextures.imageTextures, false);
+  const textAtlas = createTextureAtlas(loadedTextures.textTextures, true);
 
   const uniforms = {
     uOffset: { value: new THREE.Vector2(0, 0) },
