@@ -3,8 +3,10 @@
 
 <head>
   <meta charset="UTF-8" />
-  <link rel="icon" type="png" href="/logo.png" />
+  <link rel="icon" type="image/png" href="/logo.png" />
+  <link rel="apple-touch-icon" href="/logo.png" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#000000" />
   <title>ghost-gallery | Crapht Dsigns</title>
   <link rel="stylesheet" href="src/style.css" />
   
@@ -43,11 +45,24 @@
       font-weight: 700;
       font-size: clamp(1.5rem, 4vw, 2.5rem);
       color: #fff;
-      /* text-transform: uppercase; */
+      text-transform: uppercase;
       letter-spacing: 0.1em;
       text-align: center;
       margin: 0;
       padding: 0;
+    }
+
+    .splash-countdown {
+      font-family: "IBM Plex Mono", monospace;
+      font-weight: 400;
+      font-size: clamp(1rem, 1vw, 1.5rem);
+      color: #7a7a7a;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+      margin-top: 0.5rem;
     }
 
     /* Responsive adjustments */
@@ -61,6 +76,10 @@
       .splash-title {
         font-size: clamp(1.2rem, 5vw, 2rem);
       }
+
+      .splash-countdown {
+        font-size: clamp(0.9rem, 4vw, 1.2rem);
+      }
     }
 
     @media (max-width: 480px) {
@@ -73,6 +92,10 @@
       .splash-title {
         font-size: clamp(1rem, 6vw, 1.5rem);
       }
+
+      .splash-countdown {
+        font-size: clamp(0.8rem, 5vw, 1rem);
+      }
     }
   </style>
 </head>
@@ -82,6 +105,7 @@
   <div class="splash-screen" id="splashScreen">
     <img src="/logo.png" alt="Crapht Dsigns Logo" class="splash-logo">
     <h1 class="splash-title">Crapht Dsigns</h1>
+    <p class="splash-countdown" id="splashCountdown">... 5 seconds</p>
   </div>
 
   <!-- Main Content (initially hidden) -->
@@ -96,10 +120,27 @@
     document.addEventListener('DOMContentLoaded', function() {
       const splashScreen = document.getElementById('splashScreen');
       const gallery = document.getElementById('gallery');
+      const countdown = document.getElementById('splashCountdown');
+      
+      let secondsLeft = 5;
+      
+      // Start countdown
+      const countdownInterval = setInterval(() => {
+        secondsLeft--;
+        if (secondsLeft > 0) {
+          countdown.textContent = `... ${secondsLeft} seconds`;
+        } else {
+          countdown.textContent = '...';
+        }
+      }, 1000);
       
       // Show splash screen for 5 seconds
       setTimeout(() => {
         splashScreen.classList.add('fade-out');
+        countdown.textContent = '';
+        
+        // Clear countdown interval
+        clearInterval(countdownInterval);
         
         // Remove splash screen from DOM after fade animation
         setTimeout(() => {
