@@ -1,91 +1,91 @@
 export const projects = [
     {
         title: "The Fall Front",
-        image: "/dark hoodie front.png",
+        image: "/dark%20hoodie%20front.png",
         year: 2025,
         href: "/sample-projects"
     },
     {
         title: "The Fall Front",
-        image: "/dark hoodie back.png",
+        image: "/dark%20hoodie%20back.png",
         year: 2025,
         href: "/sample-projects"
     },
     {
         title: "Skull hoodie Front",
-        image: "/Red Skull.png",
+        image: "/Red%20Skull.png",
         year: 2025,
         href: "/sample-projects"
     },
     {
         title: "Skull hoodie Front",
-        image: "/Red Skull.png",
+        image: "/Red%20Skull.png",
         year: 2025,
         href: "/sample-projects"
     },
     {
         title: "Red Skull hoodie Front",
-        image: "/Red Skull.png",
+        image: "/Red%20Skull.png",
         year: 2025,
         href: "/sample-projects"
     },
     {
         title: "Wild west hoodie Front",
-        image: "/wild west front.png",
+        image: "/wild%20west%20front.png",
         year: 2025,
         href: "/sample-projects"
     },
     {
         title: "Wild west hoodie Back",
-        image: "/wild west back.png",
+        image: "/wild%20west%20back.png",
         year: 2025,
         href: "/sample-projects"
     },
     {
         title: "Angel hoodie Front",
-        image: "/angel front hoodie.png",
+        image: "/angel%20front%20hoodie.png",
         year: 2025,
         href: "/sample-projects"
     },
     {
         title: "Angel hoodie Back",
-        image: "/angel back hoodie.png",
+        image: "/angel%20back%20hoodie.png",
         year: 2025,
         href: "/sample-projects"
     },
     {
         title: "80 sweater Front",
-        image: "/sweater front.png",
+        image: "/sweater%20front.png",
         year: 2024,
         href: "/sample-projects"
     },
     {
         title: "80 sweater Back",
-        image: "/sweater back.png",
+        image: "/sweater%20back.png",
         year: 2024,
         href: "/sample-projects"
     },
     {
         title: "80 Red sweater Front",
-        image: "/sweater red front.png",
+        image: "/sweater%20red%20front.png",
         year: 2024,
         href: "/sample-projects"
     },
     {
         title: "80 Red sweater Back",
-        image: "/sweater red back.png",
+        image: "/sweater%20red%20back.png",
         year: 2024,
         href: "/sample-projects"
     },
     {
         title: "Feeling hoodie Front",
-        image: "/flower hoodie front.png",
+        image: "/flower%20hoodie%20front.png",
         year: 2024,
         href: "/sample-projects"
     },
     {
         title: "Feeling hoodie Back",
-        image: "/flower hoodie back.png",
+        image: "/flower%20hoodie%20back.png",
         year: 2024,
         href: "/sample-projects"
     },
@@ -103,13 +103,13 @@ export const projects = [
     },
     {
         title: "Fangs hoodie Front",
-        image: "/teeth hoodie front.png",
+        image: "/teeth%20hoodie%20front.png",
         year: 2024,
         href: "/sample-projects"
     },
     {
         title: "Fangs hoodie Back",
-        image: "/teeth hoodie back.png",
+        image: "/teeth%20hoodie%20back.png",
         year: 2024,
         href: "/sample-projects"
     },
@@ -127,19 +127,19 @@ export const projects = [
     },
     {
         title: "Butterfly hoodie Front",
-        image: "/grey hoodie front.png",
+        image: "/grey%20hoodie%20front.png",
         year: 2024,
         href: "/sample-projects"
     },
     {
         title: "Butterfly hoodie Back",
-        image: "/grey hoodie back.png",
+        image: "/grey%20hoodie%20back.png",
         year: 2024,
         href: "/sample-projects"
     },
     {
         title: "Brown hoodie Front",
-        image: "/brown hoodie front.png",
+        image: "/brown%20hoodie%20front.png",
         year: 2024,
         href: "/sample-projects"
     },

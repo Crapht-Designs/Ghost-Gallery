@@ -1,8 +1,6 @@
 import { defineConfig } from 'vite'
-import { resolve } from 'path'
 
 export default defineConfig({
-  base: './',
   build: {
     outDir: 'dist',
     assetsDir: 'assets',
@@ -15,14 +13,9 @@ export default defineConfig({
       }
     }
   },
-  resolve: {
-    alias: {
-      '@': resolve(__dirname, './src'),
-      '@/public': resolve(__dirname, './public')
-    }
-  },
   server: {
     host: true,
     port: 3000
-  }
+  },
+  // Remove base: './' to let Vercel handle serving from root
 })
